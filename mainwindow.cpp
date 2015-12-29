@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     spectrumwindow->sample1=sample1;
     spectrumwindow->sample2=sample2;
     spectrumwindow->goertzel=goertzel;
+	
 
 }
 
