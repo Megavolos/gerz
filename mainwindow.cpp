@@ -319,8 +319,8 @@ void MainWindow::change_dtmf_data(const QString &data )
 }
 void MainWindow::clear_table_background()
 {
-    ui->groupBox->setStyleSheet("QLineEdit {background-color: white}");
-   /* ui->f11_f21->setStyleSheet("background-color: white");
+
+    ui->f11_f21->setStyleSheet("background-color: white");
     ui->f12_f21->setStyleSheet("background-color: white");
     ui->f13_f21->setStyleSheet("background-color: white");
     ui->f14_f21->setStyleSheet("background-color: white");
@@ -342,7 +342,7 @@ void MainWindow::clear_table_background()
     ui->f14->setStyleSheet("background-color: white");
     ui->f21->setStyleSheet("background-color: white");
     ui->f22->setStyleSheet("background-color: white");
-    ui->f23->setStyleSheet("background-color: white");*/
+    ui->f23->setStyleSheet("background-color: white");
 }
 
 void MainWindow::dtmf_button_pressed(void)
@@ -355,12 +355,11 @@ void MainWindow::dtmf_button_pressed(void)
     ui->f24->setStyleSheet("background-color: white");
     if (button->objectName()=="pushButton_1")
     {
-        this->setStyleSheet("QLineEdit#f11_f21 { border: 1px solid red }");
         ui->edit_s1->setText(ui->f11->text());
         ui->edit_s2->setText(ui->f21->text());
-        //ui->f11_f21->setStyleSheet("background-color: red");
-        ui->f11->setStyleSheet("background-color: yellow");
-        ui->f21->setStyleSheet("background-color: yellow");
+        ui->f11_f21->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f11->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f21->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
 
 
@@ -369,9 +368,9 @@ void MainWindow::dtmf_button_pressed(void)
     {
         ui->edit_s1->setText(ui->f12->text());
         ui->edit_s2->setText(ui->f21->text());
-        ui->f12_f21->setStyleSheet("background-color: red");
-        ui->f12->setStyleSheet("background-color: yellow");
-        ui->f21->setStyleSheet("background-color: yellow");
+        ui->f12_f21->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f12->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f21->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
 
     }
@@ -379,126 +378,126 @@ void MainWindow::dtmf_button_pressed(void)
     {
         ui->edit_s1->setText(ui->f13->text());
         ui->edit_s2->setText(ui->f21->text());
-        ui->f13_f21->setStyleSheet("background-color: red");
-        ui->f13->setStyleSheet("background-color: yellow");
-        ui->f21->setStyleSheet("background-color: yellow");
+        ui->f13_f21->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f13->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f21->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_4")
     {
         ui->edit_s1->setText(ui->f14->text());
         ui->edit_s2->setText(ui->f21->text());
-        ui->f14_f21->setStyleSheet("background-color: red");
-        ui->f14->setStyleSheet("background-color: yellow");
-        ui->f21->setStyleSheet("background-color: yellow");
+        ui->f14_f21->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f14->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f21->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_5")
     {
         ui->edit_s1->setText(ui->f11->text());
         ui->edit_s2->setText(ui->f22->text());
-        ui->f11_f22->setStyleSheet("background-color: red");
-        ui->f11->setStyleSheet("background-color: yellow");
-        ui->f22->setStyleSheet("background-color: yellow");
+        ui->f11_f22->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f11->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f22->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_6")
     {
         ui->edit_s1->setText(ui->f12->text());
         ui->edit_s2->setText(ui->f22->text());
-        ui->f12_f22->setStyleSheet("background-color: red");
-        ui->f12->setStyleSheet("background-color: yellow");
-        ui->f22->setStyleSheet("background-color: yellow");
+        ui->f12_f22->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f12->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f22->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_7")
     {
         ui->edit_s1->setText(ui->f13->text());
         ui->edit_s2->setText(ui->f22->text());
-        ui->f13_f22->setStyleSheet("background-color: red");
-        ui->f13->setStyleSheet("background-color: yellow");
-        ui->f22->setStyleSheet("background-color: yellow");
+        ui->f13_f22->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f13->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f22->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_8")
     {
         ui->edit_s1->setText(ui->f14->text());
         ui->edit_s2->setText(ui->f22->text());
-        ui->f14_f22->setStyleSheet("background-color: red");
-        ui->f14->setStyleSheet("background-color: yellow");
-        ui->f22->setStyleSheet("background-color: yellow");
+        ui->f14_f22->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f14->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f22->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_9")
     {
         ui->edit_s1->setText(ui->f11->text());
         ui->edit_s2->setText(ui->f23->text());
-        ui->f11_f23->setStyleSheet("background-color: red");
-        ui->f11->setStyleSheet("background-color: yellow");
-        ui->f23->setStyleSheet("background-color: yellow");
+        ui->f11_f23->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f11->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f23->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_10")
     {
         ui->edit_s1->setText(ui->f12->text());
         ui->edit_s2->setText(ui->f23->text());
-        ui->f12_f23->setStyleSheet("background-color: red");
-        ui->f12->setStyleSheet("background-color: yellow");
-        ui->f23->setStyleSheet("background-color: yellow");
+        ui->f12_f23->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f12->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f23->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_11")
     {
         ui->edit_s1->setText(ui->f13->text());
         ui->edit_s2->setText(ui->f23->text());
-        ui->f13_f23->setStyleSheet("background-color: red");
-        ui->f13->setStyleSheet("background-color: yellow");
-        ui->f23->setStyleSheet("background-color: yellow");
+        ui->f13_f23->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f13->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f23->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_12")
     {
         ui->edit_s1->setText(ui->f14->text());
         ui->edit_s2->setText(ui->f23->text());
-        ui->f14_f23->setStyleSheet("background-color: red");
-        ui->f14->setStyleSheet("background-color: yellow");
-        ui->f23->setStyleSheet("background-color: yellow");
+        ui->f14_f23->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f14->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f23->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_13")
     {
         ui->edit_s1->setText(ui->f11->text());
         ui->edit_s2->setText(ui->f24->text());
-        ui->f11_f24->setStyleSheet("background-color: red");
-        ui->f11->setStyleSheet("background-color: yellow");
-        ui->f24->setStyleSheet("background-color: yellow");
+        ui->f11_f24->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f11->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f24->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_14")
     {
         ui->edit_s1->setText(ui->f12->text());
         ui->edit_s2->setText(ui->f24->text());
-        ui->f12_f24->setStyleSheet("background-color: red");
-        ui->f12->setStyleSheet("background-color: yellow");
-        ui->f24->setStyleSheet("background-color: yellow");
+        ui->f12_f24->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f12->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f24->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_15")
     {
         ui->edit_s1->setText(ui->f13->text());
         ui->edit_s2->setText(ui->f24->text());
-        ui->f13_f24->setStyleSheet("background-color: red");
-        ui->f13->setStyleSheet("background-color: yellow");
-        ui->f24->setStyleSheet("background-color: yellow");
+        ui->f13_f24->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f13->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f24->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
     if (button->objectName()=="pushButton_16")
     {
         ui->edit_s1->setText(ui->f14->text());
         ui->edit_s2->setText(ui->f24->text());
-        ui->f14_f24->setStyleSheet("background-color: red");
-        ui->f14->setStyleSheet("background-color: yellow");
-        ui->f24->setStyleSheet("background-color: yellow");
+        ui->f14_f24->setStyleSheet("QLineEdit{background-color: red;} QLineEdit:hover{border: 1px solid gray; background-color red;}");
+        ui->f14->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
+        ui->f24->setStyleSheet("QLineEdit{background-color: yellow;} QLineEdit:hover{border: 1px solid gray; background-color yellow;}");
 
     }
 }
