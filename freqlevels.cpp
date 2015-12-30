@@ -24,6 +24,22 @@ FreqLevels::FreqLevels(QWidget *parent) :
 void FreqLevels::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
+    int max = 6000;
+    int vol=1000;
+    int recalc;
+    recalc =ui->frame_1->height()-(ui->frame_1->height()/(float)max)*vol;
+    if (recalc<=level1.level)
+    {
+        fill1.setRect(level1.line.x1(),recalc,level1.line.x2()-level1.line.x1(),ui->frame_1->height()-recalc+ui->frame_1->y());
+        painter.fillRect(fill1,Qt::green);
+    }
+    if (recalc>level1.level)
+    {
+        fill1.setRect(level1.line.x1(),level1.line.y1(),level1.line.x2()-level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-level1.line.y1());
+        painter.fillRect(fill1,Qt::green);
+        fill1.setRect(level1.line.x1(),ui->frame_1->y(),level1.line.x2()-level1.line.x1(),level1.line.y1()-ui->frame_1->y());
+        painter.fillRect(fill1,Qt::red);
+    }
     painter.setPen(QPen(Qt::black,1,Qt::DashLine));
 
     painter.drawLine(level1.line);
@@ -43,8 +59,10 @@ void FreqLevels::paintEvent(QPaintEvent *)
     {
         if ((mouse_x>ui->frame_1->x())&&(mouse_x<(ui->frame_1->width()+ui->frame_1->x()))&&(mouse_y>ui->frame_1->y())&&(mouse_y<(ui->frame_1->y()+ui->frame_1->height())))
         {
+            int y;
+            y=ui->frame_1->height();
            level1.line.setLine(ui->frame_1->x(),mouse_y,ui->frame_1->width()+ui->frame_1->x()-1,mouse_y);
-           level1.level=ui->frame_1->height()-mouse_x+ui->frame_1->y();
+           level1.level=ui->frame_1->height()-mouse_y+ui->frame_1->y();
         }
         if ((mouse_x>ui->frame_2->x())&&(mouse_x<(ui->frame_2->width()+ui->frame_2->x()))&&(mouse_y>ui->frame_2->y())&&(mouse_y<(ui->frame_2->y()+ui->frame_2->height())))
         {

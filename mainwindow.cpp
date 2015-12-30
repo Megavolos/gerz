@@ -290,6 +290,8 @@ void MainWindow::initialize_signals(void)
 }
 void MainWindow::showfreqlevels()
 {
+    freqlevels->sample1=sample1;
+    freqlevels->sample2=sample2;
     freqlevels->show();
 }
 
