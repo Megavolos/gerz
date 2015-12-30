@@ -187,7 +187,7 @@ void SpectrumWindow::drawspectr(QPainter* p, Bins* b)
 
 void SpectrumWindow::paintEvent(QPaintEvent *)
 {
-    bool ok;
+
     QPainter painter(this);
     QLine x_axe,y_axe;
 

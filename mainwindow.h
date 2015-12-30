@@ -9,6 +9,7 @@
 #include "QLineEdit"
 #include "spectrumwindow.h"
 #include "qcustomplot.h"
+#include "freqlevels.h"
 namespace Ui {
 class MainWindow;
 }
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     SpectrumWindow* spectrumwindow;
+    FreqLevels* freqlevels;
     Sample *sample1, *sample2;
     Goertzel* goertzel;
     QVector<double> *x, *y;
@@ -36,6 +38,7 @@ private:
     void resizeEvent(QResizeEvent *);
     void clear_table_background();
 
+
 public slots:
     void change_rate();
     void change_freq1();
@@ -50,6 +53,7 @@ public slots:
     void change_dtmf_data(const QString &data);
     void dtmf_button_pressed(void);
     void showspectr(void);
+    void showfreqlevels();
 
 };
 

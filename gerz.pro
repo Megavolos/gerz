@@ -18,14 +18,17 @@ SOURCES += main.cpp\
     qcustomplot.cpp \
     sample.cpp \
     spectrumwindow.cpp \
-    grid.cpp
+    grid.cpp \
+    freqlevels.cpp
 
 HEADERS  += mainwindow.h \
     goerzel.h \
     qcustomplot.h \
     sample.h \
     spectrumwindow.h \
-    grid.h
+    grid.h \
+    freqlevels.h
 
 FORMS    += mainwindow.ui \
-    spectrumwindow.ui
+    spectrumwindow.ui \
+    freqlevels.ui

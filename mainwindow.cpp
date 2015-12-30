@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     x = new QVector<double>;
     y = new QVector<double>;
     spectrumwindow = new SpectrumWindow(this);
+    freqlevels = new FreqLevels(this);
     sample1 = new Sample;
     sample2 = new Sample;
     goertzel = new Goertzel;
@@ -41,6 +42,7 @@ MainWindow::~MainWindow()
 
     delete sample2;
     delete goertzel;
+    delete freqlevels;
     delete ui;
 
 }
@@ -225,6 +227,7 @@ void MainWindow::initialize_controls(void)
     ui->pushButton_16->setText(ui->f14_f24->text());
     ui->pushButton_17->setText("Show spectrogram");
     spectrumwindow->setWindowFlags(Qt::Window);
+    freqlevels->setWindowFlags(Qt::Window);
     this->setWindowTitle("Goertzel DTFM test");
 
     ui->label_f_res->setToolTip("Разрешающая способность алгоритма Гёрцеля по частоте.\nОпределяется отношением Sample Rate/Sample Buffer.\nЕсли разница между частотами в сигнале будет\nменьше,чем отношение частоты дискретизации к длине буфера\nто в сигнале будет невозможно выделить одну из частот.");
@@ -283,7 +286,13 @@ void MainWindow::initialize_signals(void)
     connect(ui->pushButton_15,SIGNAL(pressed()),this,SLOT(dtmf_button_pressed()));
     connect(ui->pushButton_16,SIGNAL(pressed()),this,SLOT(dtmf_button_pressed()));
     connect(ui->pushButton_17,SIGNAL(pressed()),this,SLOT(showspectr()));
+    connect(ui->pushButton_freqlevels,SIGNAL(pressed()),this,SLOT(showfreqlevels()));
 }
+void MainWindow::showfreqlevels()
+{
+    freqlevels->show();
+}
+
 void MainWindow::change_freqs()
 {
     clear_table_background();
