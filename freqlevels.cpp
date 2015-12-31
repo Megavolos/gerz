@@ -18,6 +18,7 @@ FreqLevels::FreqLevels(QWidget *parent) :
 
 
 
+
 }
 
 
@@ -25,7 +26,7 @@ void FreqLevels::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     int max = 6000;
-    int vol=4000;
+    int vol=2000;
     int recalc;
     recalc =ui->frame_1->height()-(ui->frame_1->height()/(float)max)*vol;
     if (recalc<=level1.level)
