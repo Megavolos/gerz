@@ -26,9 +26,11 @@ void FreqLevels::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     int max = 6000;
-    int vol=2000;
+    int vol=3000;
     int recalc;
-    recalc =ui->frame_1->height()-(ui->frame_1->height()/(float)max)*vol;
+    int h;
+    recalc =(ui->frame_1->height()/(float)max)*vol;
+    h=ui->frame_1->height();
     if (recalc<=level1.level)
     {
         fill1.setRect(level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-recalc,level1.line.x2()-level1.line.x1(),recalc);
@@ -36,10 +38,10 @@ void FreqLevels::paintEvent(QPaintEvent *)
     }
     if (recalc>level1.level)
     {
-       // fill1.setRect(level1.line.x1(),level1.line.y1(),level1.line.x2()-level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-level1.line.y1());
-        //painter.fillRect(fill1,Qt::green);
-        //fill1.setRect(level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-recalc,level1.line.x2()-level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-recalc);
-        //painter.fillRect(fill1,Qt::red);
+        fill1.setRect(level1.line.x1(),level1.line.y1(),level1.line.x2()-level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-level1.line.y1());
+        painter.fillRect(fill1,Qt::green);
+        fill1.setRect(level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-recalc,level1.line.x2()-level1.line.x1(),level1.line.y1()-recalc - ui->frame_1->y());
+        painter.fillRect(fill1,Qt::red);
     }
     painter.setPen(QPen(Qt::black,1,Qt::DashLine));
 
