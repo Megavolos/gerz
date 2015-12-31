@@ -21,28 +21,37 @@ FreqLevels::FreqLevels(QWidget *parent) :
 
 }
 
+void FreqLevels::fillFrame(QPainter *painter, QFrame *frame, Level* lev,float vol,float max)
+{
+    int recalc;
+    recalc =(frame->height()/(float)max)*vol;
+    if (recalc<=lev->level)
+    {
+        fill1.setRect(lev->line.x1(),frame->height()+frame->y()-recalc,lev->line.x2()-lev->line.x1(),recalc);
+        painter->fillRect(fill1,Qt::green);
+    }
+    if (recalc>lev->level)
+    {
+        fill1.setRect(lev->line.x1(),lev->line.y1(),lev->line.x2()-lev->line.x1(),frame->height()+frame->y()-lev->line.y1());
+        painter->fillRect(fill1,Qt::green);
+        fill1.setRect(lev->line.x1(),frame->height()+frame->y()-recalc,lev->line.x2()-lev->line.x1(),lev->line.y1()-recalc - frame->y());
+        painter->fillRect(fill1,Qt::red);
+    }
+}
 
 void FreqLevels::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    int max = 6000;
-    int vol=3000;
-    int recalc;
-    int h;
-    recalc =(ui->frame_1->height()/(float)max)*vol;
-    h=ui->frame_1->height();
-    if (recalc<=level1.level)
-    {
-        fill1.setRect(level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-recalc,level1.line.x2()-level1.line.x1(),recalc);
-        painter.fillRect(fill1,Qt::green);
-    }
-    if (recalc>level1.level)
-    {
-        fill1.setRect(level1.line.x1(),level1.line.y1(),level1.line.x2()-level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-level1.line.y1());
-        painter.fillRect(fill1,Qt::green);
-        fill1.setRect(level1.line.x1(),ui->frame_1->height()+ui->frame_1->y()-recalc,level1.line.x2()-level1.line.x1(),level1.line.y1()-recalc - ui->frame_1->y());
-        painter.fillRect(fill1,Qt::red);
-    }
+
+
+    fillFrame(&painter,ui->frame_1,&level1,3000, 6000);
+    fillFrame(&painter,ui->frame_2,&level2,3000, 6000);
+    fillFrame(&painter,ui->frame_3,&level3,3000, 6000);
+    fillFrame(&painter,ui->frame_4,&level4,3000, 6000);
+    fillFrame(&painter,ui->frame_5,&level5,3000, 6000);
+    fillFrame(&painter,ui->frame_6,&level6,3000, 6000);
+    fillFrame(&painter,ui->frame_7,&level7,3000, 6000);
+    fillFrame(&painter,ui->frame_8,&level8,3000, 6000);
     painter.setPen(QPen(Qt::black,1,Qt::DashLine));
 
     painter.drawLine(level1.line);

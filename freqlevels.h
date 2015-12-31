@@ -7,6 +7,7 @@
 #include <QWheelEvent>
 #include "goerzel.h"
 #include "sample.h"
+#include <QFrame>
 namespace Ui {
 class FreqLevels;
 }
@@ -34,6 +35,7 @@ private:
     QRect fill1;
     Ui::FreqLevels *ui;
     int mouse_x,mouse_y;
+    void fillFrame(QPainter *painter, QFrame *frame, Level* lev, float vol, float max);
 
 protected:
    void paintEvent(QPaintEvent *);
