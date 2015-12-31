@@ -25,13 +25,15 @@ public:
     Sample* sample1;
     Sample* sample2;
 private:
-    struct Level
+    class Level
     {
-      QLine line;
-      bool setup_level;
-      int level;
-    } level1,level2,level3,level4,level5,level6,level7,level8;
-
+    public:
+        Level();
+        QLine* line;
+        int level;
+        ~Level();
+    };
+    Level *level1,*level2,*level3,*level4,*level5,*level6,*level7,*level8;
     QRect fill1;
     Ui::FreqLevels *ui;
     int mouse_x,mouse_y;
