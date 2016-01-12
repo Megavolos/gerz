@@ -23,9 +23,120 @@ FreqLevels::FreqLevels(QWidget *parent) :
     level6 = new Level();
     level7 = new Level();
     level8 = new Level();
+    fill1_r = new QRect();
+    fill1_g = new QRect();
+    fill2_r = new QRect();
+    fill2_g = new QRect();
+    fill3_r = new QRect();
+    fill3_g = new QRect();
+    fill4_r = new QRect();
+    fill4_g = new QRect();
+    fill5_r = new QRect();
+    fill5_g = new QRect();
+    fill6_r = new QRect();
+    fill6_g = new QRect();
+    fill7_r = new QRect();
+    fill7_g = new QRect();
+    fill8_r = new QRect();
+    fill8_g = new QRect();
+    goertzel = new Goertzel();
 
+    connect (ui->lineEdit_f1,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
+    connect (ui->lineEdit_f2,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
+    connect (ui->lineEdit_f3,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
+    connect (ui->lineEdit_f4,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
+    connect (ui->lineEdit_f5,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
+    connect (ui->lineEdit_f6,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
+    connect (ui->lineEdit_f7,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
+    connect (ui->lineEdit_f8,SIGNAL(editingFinished()),this,SLOT(goerzelrecalc()));
 
 }
+void FreqLevels::resizeEvent(QResizeEvent*)
+{
+    float resize;
+    resize = ui->frame_1->height();
+    level1->line->setLine(ui->frame_1->x(),level1->line->y1(),ui->frame_1->width()+ui->frame_1->x()-1,level1->line->y1());
+    level2->line->setLine(ui->frame_2->x(),level2->line->y1(),ui->frame_2->width()+ui->frame_2->x()-1,level2->line->y1());
+    level3->line->setLine(ui->frame_3->x(),level3->line->y1(),ui->frame_3->width()+ui->frame_3->x()-1,level3->line->y1());
+    level4->line->setLine(ui->frame_4->x(),level4->line->y1(),ui->frame_4->width()+ui->frame_4->x()-1,level4->line->y1());
+    level5->line->setLine(ui->frame_5->x(),level5->line->y1(),ui->frame_5->width()+ui->frame_5->x()-1,level5->line->y1());
+    level6->line->setLine(ui->frame_6->x(),level6->line->y1(),ui->frame_6->width()+ui->frame_6->x()-1,level6->line->y1());
+    level7->line->setLine(ui->frame_7->x(),level7->line->y1(),ui->frame_7->width()+ui->frame_7->x()-1,level7->line->y1());
+    level8->line->setLine(ui->frame_8->x(),level8->line->y1(),ui->frame_8->width()+ui->frame_8->x()-1,level8->line->y1());
+
+    goerzelrecalc();
+}
+
+float FreqLevels::getMaxGoertzel()
+{
+    float max1,max2;
+    goertzel->initialize(sample1->get_freq(),sample1);
+    goertzel->reset();
+    for (int i=0; i<sample1->get_N(); i++)
+    {
+        goertzel->process_sample(sample1->get_sample(i)+sample2->get_sample(i));
+    }
+    max1 = goertzel->get_magnitude_squared()/10000;
+
+    goertzel->initialize(sample2->get_freq(),sample1);
+    goertzel->reset();
+    for (int i=0; i<sample1->get_N(); i++)
+    {
+        goertzel->process_sample(sample1->get_sample(i)+sample2->get_sample(i));
+    }
+    max2 = goertzel->get_magnitude_squared()/10000;
+    if (max2>=max1)
+    {
+        return max2;
+    }
+    else
+    {
+        return max1;
+    }
+}
+void FreqLevels::frame_fill(QRect* fill_g, QRect* fill_r, QFrame* frame, Level* lev, QLineEdit* lineedit )
+{
+    bool ok;
+    int recalc;
+    recalc =(frame->height()/(float)getMaxGoertzel())*10000;
+    goertzel->initialize(lineedit->text().toInt(&ok),sample1);
+    goertzel->reset();
+    for (int i=0; i<sample1->get_N(); i++)
+    {
+        goertzel->process_sample(sample1->get_sample(i)+sample2->get_sample(i));
+    }
+    recalc*=goertzel->get_magnitude_squared()/100000000;
+
+    if (recalc<=lev->level)
+    {
+        fill_g->setRect(lev->line->x1(),frame->height()+frame->y()-recalc,lev->line->x2()-lev->line->x1(),recalc);
+        fill_r->setRect(lev->line->x1(),frame->height()+frame->y()-recalc,0,0);
+    }
+    if (recalc>lev->level)
+    {
+        fill_g->setRect(lev->line->x1(),lev->line->y1(),lev->line->x2()-lev->line->x1(),frame->height()+frame->y()-lev->line->y1());
+        fill_r->setRect(lev->line->x1(),frame->height()+frame->y()-recalc,lev->line->x2()-lev->line->x1(),recalc-frame->height()+lev->line->y1()-frame->y());
+    }
+
+}
+
+void FreqLevels::goerzelrecalc()
+{
+
+    frame_fill(fill1_g,fill1_r,ui->frame_1,level1,ui->lineEdit_f1);
+    frame_fill(fill2_g,fill2_r,ui->frame_2,level2,ui->lineEdit_f2);
+    frame_fill(fill3_g,fill3_r,ui->frame_3,level3,ui->lineEdit_f3);
+    frame_fill(fill4_g,fill4_r,ui->frame_4,level4,ui->lineEdit_f4);
+    frame_fill(fill5_g,fill5_r,ui->frame_5,level5,ui->lineEdit_f5);
+    frame_fill(fill6_g,fill6_r,ui->frame_6,level6,ui->lineEdit_f6);
+    frame_fill(fill7_g,fill7_r,ui->frame_7,level7,ui->lineEdit_f7);
+    frame_fill(fill8_g,fill8_r,ui->frame_8,level8,ui->lineEdit_f8);
+
+    this->update();
+
+}
+
+
 FreqLevels::Level::Level()
 {
     line = new QLine();
@@ -38,38 +149,35 @@ FreqLevels::Level::~Level()
     delete line;
 }
 
-void FreqLevels::fillFrame(QPainter *painter, QFrame *frame, Level* lev,float vol,float max)
-{
-    int recalc;
-    recalc =(frame->height()/(float)max)*vol;
-    if (recalc<=lev->level)
-    {
-        fill1.setRect(lev->line->x1(),frame->height()+frame->y()-recalc,lev->line->x2()-lev->line->x1(),recalc);
-        painter->fillRect(fill1,Qt::green);
-    }
-    if (recalc>lev->level)
-    {
 
-        fill1.setRect(lev->line->x1(),lev->line->y1(),lev->line->x2()-lev->line->x1(),frame->height()+frame->y()-lev->line->y1());
-        painter->fillRect(fill1,Qt::green);
-        fill1.setRect(lev->line->x1(),frame->height()+frame->y()-recalc,lev->line->x2()-lev->line->x1(),recalc-frame->height()+lev->line->y1()-frame->y());
-        painter->fillRect(fill1,Qt::red);
-    }
+void FreqLevels::fillFrame(QPainter *painter)
+{
+    painter->fillRect(*fill1_g,Qt::green);
+    painter->fillRect(*fill1_r,Qt::red);
+    painter->fillRect(*fill2_g,Qt::green);
+    painter->fillRect(*fill2_r,Qt::red);
+    painter->fillRect(*fill3_g,Qt::green);
+    painter->fillRect(*fill3_r,Qt::red);
+    painter->fillRect(*fill4_g,Qt::green);
+    painter->fillRect(*fill4_r,Qt::red);
+    painter->fillRect(*fill5_g,Qt::green);
+    painter->fillRect(*fill5_r,Qt::red);
+    painter->fillRect(*fill6_g,Qt::green);
+    painter->fillRect(*fill6_r,Qt::red);
+    painter->fillRect(*fill7_g,Qt::green);
+    painter->fillRect(*fill7_r,Qt::red);
+    painter->fillRect(*fill8_g,Qt::green);
+    painter->fillRect(*fill8_r,Qt::red);
+
 }
 
 void FreqLevels::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
+    painter_p = &painter;
 
+    fillFrame(&painter);
 
-    fillFrame(&painter,ui->frame_1,level1,5000, 6000);
-    fillFrame(&painter,ui->frame_2,level2,3000, 6000);
-    fillFrame(&painter,ui->frame_3,level3,1000, 6000);
-    fillFrame(&painter,ui->frame_4,level4,4000, 6000);
-    fillFrame(&painter,ui->frame_5,level5,4500, 6000);
-    fillFrame(&painter,ui->frame_6,level6,2000, 6000);
-    fillFrame(&painter,ui->frame_7,level7,2500, 6000);
-    fillFrame(&painter,ui->frame_8,level8,3500, 6000);
     painter.setPen(QPen(Qt::black,1,Qt::DashLine));
 
     painter.drawLine(*level1->line);
@@ -91,41 +199,49 @@ void FreqLevels::paintEvent(QPaintEvent *)
         {
            level1->line->setLine(ui->frame_1->x(),mouse_y,ui->frame_1->width()+ui->frame_1->x()-1,mouse_y);
            level1->level=ui->frame_1->height()-mouse_y+ui->frame_1->y();
+           emit ui->lineEdit_f1->editingFinished();
         }
         if ((mouse_x>ui->frame_2->x())&&(mouse_x<(ui->frame_2->width()+ui->frame_2->x()))&&(mouse_y>ui->frame_2->y())&&(mouse_y<(ui->frame_2->y()+ui->frame_2->height())))
         {
            level2->line->setLine(ui->frame_2->x(),mouse_y,ui->frame_2->width()+ui->frame_2->x()-1,mouse_y);
            level2->level=ui->frame_2->height()-mouse_y+ui->frame_2->y();
+           emit ui->lineEdit_f2->editingFinished();
         }
         if ((mouse_x>ui->frame_3->x())&&(mouse_x<(ui->frame_3->width()+ui->frame_3->x()))&&(mouse_y>ui->frame_3->y())&&(mouse_y<(ui->frame_3->y()+ui->frame_3->height())))
         {
            level3->line->setLine(ui->frame_3->x(),mouse_y,ui->frame_3->width()+ui->frame_3->x()-1,mouse_y);
            level3->level=ui->frame_3->height()-mouse_y+ui->frame_3->y();
+           emit ui->lineEdit_f3->editingFinished();
         }
         if ((mouse_x>ui->frame_4->x())&&(mouse_x<(ui->frame_4->width()+ui->frame_4->x()))&&(mouse_y>ui->frame_4->y())&&(mouse_y<(ui->frame_4->y()+ui->frame_4->height())))
         {
            level4->line->setLine(ui->frame_4->x(),mouse_y,ui->frame_4->width()+ui->frame_4->x()-1,mouse_y);
            level4->level=ui->frame_4->height()-mouse_y+ui->frame_4->y();
+           emit ui->lineEdit_f4->editingFinished();
         }
         if ((mouse_x>ui->frame_5->x())&&(mouse_x<(ui->frame_5->width()+ui->frame_5->x()))&&(mouse_y>ui->frame_5->y())&&(mouse_y<(ui->frame_5->y()+ui->frame_5->height())))
         {
            level5->line->setLine(ui->frame_5->x(),mouse_y,ui->frame_5->width()+ui->frame_5->x()-1,mouse_y);
            level5->level=ui->frame_5->height()-mouse_y+ui->frame_5->y();
+           emit ui->lineEdit_f5->editingFinished();
         }
         if ((mouse_x>ui->frame_6->x())&&(mouse_x<(ui->frame_6->width()+ui->frame_6->x()))&&(mouse_y>ui->frame_6->y())&&(mouse_y<(ui->frame_6->y()+ui->frame_6->height())))
         {
            level6->line->setLine(ui->frame_6->x(),mouse_y,ui->frame_6->width()+ui->frame_6->x()-1,mouse_y);
            level6->level=ui->frame_6->height()-mouse_y+ui->frame_6->y();
+           emit ui->lineEdit_f6->editingFinished();
         }
         if ((mouse_x>ui->frame_7->x())&&(mouse_x<(ui->frame_7->width()+ui->frame_7->x()))&&(mouse_y>ui->frame_7->y())&&(mouse_y<(ui->frame_7->y()+ui->frame_7->height())))
         {
            level7->line->setLine(ui->frame_7->x(),mouse_y,ui->frame_7->width()+ui->frame_7->x()-1,mouse_y);
            level7->level=ui->frame_7->height()-mouse_y+ui->frame_7->y();
+           emit ui->lineEdit_f7->editingFinished();
         }
         if ((mouse_x>ui->frame_8->x())&&(mouse_x<(ui->frame_8->width()+ui->frame_8->x()))&&(mouse_y>ui->frame_8->y())&&(mouse_y<(ui->frame_8->y()+ui->frame_8->height())))
         {
            level8->line->setLine(ui->frame_8->x(),mouse_y,ui->frame_8->width()+ui->frame_8->x()-1,mouse_y);
            level8->level=ui->frame_8->height()-mouse_y+ui->frame_8->y();
+           emit ui->lineEdit_f8->editingFinished();
         }
 
 
@@ -156,5 +272,22 @@ FreqLevels::~FreqLevels()
     delete level6;
     delete level7;
     delete level8;
+    delete fill1_g;
+    delete fill1_r;
+    delete fill2_g;
+    delete fill2_r;
+    delete fill3_g;
+    delete fill3_r;
+    delete fill4_g;
+    delete fill4_r;
+    delete fill5_g;
+    delete fill5_r;
+    delete fill6_g;
+    delete fill6_r;
+    delete fill7_g;
+    delete fill7_r;
+    delete fill8_g;
+    delete fill8_r;
+    delete goertzel;
     delete ui;
 }

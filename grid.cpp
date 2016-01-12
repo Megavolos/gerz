@@ -71,10 +71,7 @@ void Grid::SetWidth(int w)
 {
     width=w;
 }
-void Grid::SetHeight(int h)
-{
-    h=height;
-}
+
 void Grid::SetNLength(int l)
 {
     N_length=l;
@@ -147,8 +144,8 @@ void Grid::DrawGrid(QPainter* parent)
 }
 void Grid::DrawBin(QPainter* parent,int count, float value)
 {
-    int x,y;
-    x=((x2-x1)/((float)(max_value_x-min_value_x))*count + x1);
+    int y;
+    //x=((x2-x1)/((float)(max_value_x-min_value_x))*count + x1);
     y=y2-(((y2-y1)/((float)(max_value_y-min_value_y))))*value;
     if (y<y1) y=y1;
      parent->drawLine(count+x1,y,count+x1,y2);

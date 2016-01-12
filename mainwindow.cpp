@@ -55,6 +55,10 @@ void MainWindow::change_freq1()
         spectrumwindow->binsrecalc();
         spectrumwindow->update();
     }
+    if (freqlevels->isVisible())
+    {
+        freqlevels->goerzelrecalc();
+    }
 }
 void MainWindow::change_freq2()
 {
@@ -63,6 +67,10 @@ void MainWindow::change_freq2()
     {
         spectrumwindow->binsrecalc();
         spectrumwindow->update();
+    }
+    if (freqlevels->isVisible())
+    {
+        freqlevels->goerzelrecalc();
     }
 }
 

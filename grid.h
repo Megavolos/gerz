@@ -32,7 +32,6 @@ public:
     void SetY1(int);
     void SetY2(int);
     void SetWidth(int);
-    void SetHeight(int);
     void SetNLength(int);
     int GetNy(void);
     int GetNx(void);
