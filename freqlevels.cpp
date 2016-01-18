@@ -8,6 +8,7 @@ FreqLevels::FreqLevels(QWidget *parent) :
     ui->setupUi(this);
     this->setMouseTracking(true);
     ui->frame_1->setMouseTracking(true);
+    ui->frame_1->setMouseTracking(true);
     ui->frame_2->setMouseTracking(true);
     ui->frame_3->setMouseTracking(true);
     ui->frame_4->setMouseTracking(true);
