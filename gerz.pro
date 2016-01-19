@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT += multimedia
 
 QT += printsupport
 TARGET = gerz
@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     sample.cpp \
     spectrumwindow.cpp \
     grid.cpp \
-    freqlevels.cpp
+    freqlevels.cpp \
+    sequence.cpp \
+    audiooutput.cpp
 
 HEADERS  += mainwindow.h \
     goerzel.h \
@@ -27,8 +29,11 @@ HEADERS  += mainwindow.h \
     sample.h \
     spectrumwindow.h \
     grid.h \
-    freqlevels.h
+    freqlevels.h \
+    sequence.h \
+    audiooutput.h
 
 FORMS    += mainwindow.ui \
     spectrumwindow.ui \
-    freqlevels.ui
+    freqlevels.ui \
+    sequence.ui

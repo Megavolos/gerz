@@ -163,7 +163,7 @@
        <widget class="QGroupBox" name="groupBox">
         <property name="minimumSize">
          <size>
-          <width>280</width>
+          <width>290</width>
           <height>200</height>
          </size>
         </property>
@@ -999,6 +999,13 @@
          <widget class="QPushButton" name="pushButton_freqlevels">
           <property name="text">
            <string>Freq. levels</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>AudioOutput</string>
           </property>
          </widget>
         </item>

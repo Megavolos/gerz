@@ -8,6 +8,7 @@
 #include "QString"
 #include "QLineEdit"
 #include "spectrumwindow.h"
+#include "sequence.h"
 #include "qcustomplot.h"
 #include "freqlevels.h"
 namespace Ui {
@@ -20,6 +21,7 @@ class MainWindow : public QMainWindow
 
 public:
     SpectrumWindow* spectrumwindow;
+    Sequence* sequence;
     FreqLevels* freqlevels;
     Sample *sample1, *sample2;
     Goertzel* goertzel;

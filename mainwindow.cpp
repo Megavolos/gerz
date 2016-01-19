@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     x = new QVector<double>;
     y = new QVector<double>;
     spectrumwindow = new SpectrumWindow(this);
+    sequence = new Sequence(this);
     freqlevels = new FreqLevels(this);
     sample1 = new Sample;
     sample2 = new Sample;
@@ -31,6 +32,7 @@ MainWindow::~MainWindow()
 {
 
     delete spectrumwindow;
+    delete sequence;
     delete x;
     delete y;
     delete sample1;
@@ -85,6 +87,10 @@ void MainWindow::change_N()
         spectrumwindow->binsrecalc();
         spectrumwindow->update();
     }
+    if (freqlevels->isVisible())
+    {
+        freqlevels->goerzelrecalc();
+    }
 }
 void MainWindow::change_rate()
 {
@@ -96,6 +102,11 @@ void MainWindow::change_rate()
       spectrumwindow->binsrecalc();
       spectrumwindow->update();
     }
+    if (freqlevels->isVisible())
+    {
+        freqlevels->goerzelrecalc();
+    }
+
 }
 
 void MainWindow::refresh_graph (Sample* sample,QLineEdit* qle)
@@ -104,7 +115,10 @@ void MainWindow::refresh_graph (Sample* sample,QLineEdit* qle)
     bool ok;
     str=qle->text();
     if (qle==ui->edit_rate)
-        sample->set_sample_rate(str.toUInt(&ok,10));
+    {
+        sample1->set_sample_rate(str.toUInt(&ok,10));
+        sample2->set_sample_rate(str.toUInt(&ok,10));
+    }
 
     if (qle==ui->edit_N)
     {
@@ -236,6 +250,7 @@ void MainWindow::initialize_controls(void)
     ui->pushButton_17->setText("Show spectrogram");
     spectrumwindow->setWindowFlags(Qt::Window);
     freqlevels->setWindowFlags(Qt::Window);
+    sequence->setWindowFlags(Qt::Window);
     this->setWindowTitle("Goertzel DTFM test");
 
     ui->label_f_res->setToolTip("Разрешающая способность алгоритма Гёрцеля по частоте.\nОпределяется отношением Sample Rate/Sample Buffer.\nЕсли разница между частотами в сигнале будет\nменьше,чем отношение частоты дискретизации к длине буфера\nто в сигнале будет невозможно выделить одну из частот.");
@@ -294,6 +309,7 @@ void MainWindow::initialize_signals(void)
     connect(ui->pushButton_15,SIGNAL(pressed()),this,SLOT(dtmf_button_pressed()));
     connect(ui->pushButton_16,SIGNAL(pressed()),this,SLOT(dtmf_button_pressed()));
     connect(ui->pushButton_17,SIGNAL(pressed()),this,SLOT(showspectr()));
+    connect(ui->pushButton,SIGNAL(pressed()),sequence,SLOT(show()));
     connect(ui->pushButton_freqlevels,SIGNAL(pressed()),this,SLOT(showfreqlevels()));
 }
 void MainWindow::showfreqlevels()

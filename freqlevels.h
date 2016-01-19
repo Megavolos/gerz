@@ -9,6 +9,8 @@
 #include "sample.h"
 #include <QFrame>
 #include <QLineEdit>
+#include <QSpinBox>
+
 
 namespace Ui {
 class FreqLevels;
@@ -37,6 +39,7 @@ private:
         int level;
         ~Level();
     };
+    bool onceShowed;
     void setFrame(QFrame *frame, Level *lev, float vol, float max);
     Level *level1,*level2,*level3,*level4,*level5,*level6,*level7,*level8;
     QRect *fill1_r, *fill1_g, *fill2_r, *fill2_g, *fill3_r, *fill3_g, *fill4_r, *fill4_g, *fill5_r, *fill5_g, *fill6_r, *fill6_g, *fill7_r, *fill7_g, *fill8_r, *fill8_g;
@@ -46,8 +49,10 @@ private:
     float getMaxGoertzel ();
     float setRect(QRect&);
     void frame_fill(QRect* fill_g, QRect* fill_r, QFrame* frame, Level* lev , QLineEdit *lineedit);
+    void frame_fill(QRect* fill_g, QRect* fill_r, QFrame* frame, Level* lev, QSpinBox* lineedit );
     void fillFrame(QPainter *painter);
     void resizeEvent(QResizeEvent*);
+    void showEvent(QShowEvent*);
 
 protected:
    void paintEvent(QPaintEvent *);
